@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: AboutCtrl', function () {
+describe('Controller: LoginController', function () {
 
   // load the controller's module
   beforeEach(module('angularApp'));
 
-  var AboutCtrl,
+  var LoginCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    AboutCtrl = $controller('AboutCtrl', {
+    LoginCtrl = $controller('LoginController', {
       $scope: scope
     });
   }));
