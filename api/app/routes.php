@@ -10,8 +10,14 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::get('/', function() {
+    return View::make('index');
+});
 
-Route::group(array('prefix' => 'api'), function () {
+Route::group(array('prefix' => 'api',), function () {
     Route::post('login', 'AuthController@login');
-    Route::get('logut', 'AuthController@logout');
+    Route::get('logout', 'AuthController@logout');
+
+    Route::get('loan', 'LoanController@index');
+    Route::post('loan', 'LoanController@store');
 });

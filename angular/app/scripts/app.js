@@ -19,14 +19,14 @@ angular
         'ui.router'
     ])
     .constant('API_END', 'http://localhost:8000/api/')
-    .config(function ($stateProvider, $urlRouterProvider) {
-
+    .config(function ($stateProvider,$httpProvider) {
+        $httpProvider.defaults.withCredentials = true;
         // $urlRouterProvider.otherwise("/login");
         $stateProvider
             .state('dashboard', {
-                url: "/dashboard",
+                url: '/dashboard',
                 controller: 'DashboardController',
-                templateUrl: "views/dashboard.html",
+                templateUrl: 'views/dashboard.html',
                 resolve: {
                     user: ['authFactory', '$q',
                         function (authFactory, $q) {
@@ -38,8 +38,14 @@ angular
                 }
             })
             .state('dashboard.list', {
-                url: "/list",
-                templateUrl: "views/dashboard/list.html"
+                url: '/list',
+                controller: 'DashboardController',
+                templateUrl: 'views/dashboard/list.html'
+            })
+            .state('dashboard.create', {
+                url: '/create',
+                controller: 'DashboardController',
+                templateUrl: 'views/dashboard/create.html'
             })
             .state('login', {
                 url: '/login',
@@ -57,7 +63,7 @@ angular
                     ]
                 },
                 templateUrl: 'views/login.html'
-            })
+            });
     }).run(['$rootScope', '$state', '$cookieStore', 'authFactory',
         function ($rootScope, $state, $cookieStore, authFactory) {
             $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {

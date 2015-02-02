@@ -8,10 +8,24 @@
  * Controller of the angularApp
  */
 angular.module('angularApp')
-  .controller('DashboardController', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+    .controller('DashboardController', ['$scope', 'loanFactory',
+        function ($scope, loanFactory) {
+
+            $scope.loan = {
+                amount: null
+            };
+
+            $scope.create = function () {
+                console.log($scope.loan);
+                loanFactory.create($scope.loan).then(function(response,status){
+                    console.log(response,status);
+                });
+            };
+
+            $scope.awesomeThings = [
+                'HTML5 Boilerplate',
+                'AngularJS',
+                'Karma'
+            ];
+        }
+    ]);

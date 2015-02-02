@@ -10,13 +10,11 @@ class AuthController extends \BaseController
     public function login() {
 
         $credential = Input::all();
-
-        // var_dump($credential);die;
-        if (Auth::attempt($credential)) {
+        if (Auth::attempt($credential, true)) {
             $user = Auth::user();
             return Response::json($user);
         } else {
-            return Response::json(array('msg' => 'Invalid user'), 401);
+            return Response::json($credential, 401);
         }
     }
 

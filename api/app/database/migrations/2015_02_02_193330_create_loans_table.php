@@ -2,7 +2,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateLoansTable extends Migration
 {
 
     /**
@@ -11,11 +11,11 @@ class CreateUsersTable extends Migration
      * @return void
      */
     public function up() {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('loans', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('email');
-            $table->string('password');
-            $table->string('remember_token')->nullable();
+            $table->integer('amount');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ class CreateUsersTable extends Migration
      * @return void
      */
     public function down() {
-        Schema::drop('users');
+        Schema::drop('loans');
     }
 }
