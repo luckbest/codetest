@@ -15,6 +15,11 @@ class AuthController extends BaseController
     |
     */
 
+    /**
+     * Login action
+     *
+     * @return Response
+     */
     public function login() {
 
         $user = Sentry::getUser();
@@ -24,6 +29,11 @@ class AuthController extends BaseController
         return Response::json(array('token' => $token->toArray()));
     }
 
+    /**
+     * Logout
+     *
+     * @return Response
+     */
     public function logout() {
         $user = Sentry::logout();
         return Response::json(array($user));
