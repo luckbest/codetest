@@ -1,110 +1,70 @@
 <?php
-class LoanController extends \BaseController
+class LoanController extends BaseController
 {
 
     /**
-     * Display a listing of the resource.
-     * GET /loan
+     * Display a listing of loans
      *
      * @return Response
      */
     public function index() {
 
-        $credential = array('password' => 'admin', 'email' => "admin@lupr.pl");
-        Auth::attempt($credential);
-        $user = Auth::user();
-        var_dump($user->loans());
-        return Response::json($user->loans());
+        $user = Sentry::getUser();
+        $loans = Loan::where('user_id', '=', $user->id)->get();
+        return Response::json($loans);
     }
 
     /**
-     * Show the form for creating a new resource.
-     * GET /loan/create
-     *
-     * @return Response
-     */
-    public function create() {
-
-        //
-
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * POST /loan
+     * Store a newly created lost in storage.
      *
      * @return Response
      */
     public function store() {
-        $validator = Validator::make($data = Input::all(), Loan::$rules);
-        if ($validator->fails()) {
-            return Response::json([], 422);
-        }
-        if(!Auth::check()){
-            var_dump(Session::all());
-            return Response::json(array('dupa'));
-        }
-        $user = Auth::user();
-        $test = $user->id;
-        Loan::create(array('amount' => Input::get('amount'), 'user_id' => $user->id));
 
-        return Response::json();
+        $user = Sentry::getUser();
+        $loan = Loan::create(array('amount' => Input::get('amount'), 'user_id' => $user->id));
+        return Response::json($loan);
     }
 
     /**
-     * Display the specified resource.
-     * GET /loan/{id}
+     * Display the specified loan.
      *
      * @param  int  $id
      * @return Response
      */
     public function show($id) {
-
-        //
-
-
+        $loan = Loan::findOrFail($id);
+        return Response::json($loan);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * GET /loan/{id}/edit
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id) {
-
-        //
-
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * PUT /loan/{id}
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id) {
-
-        //
-
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * DELETE /loan/{id}
+     * Remove the specified loan from storage.
      *
      * @param  int  $id
      * @return Response
      */
     public function destroy($id) {
+        Loan::destroy($id);
+        return Response::json($id);
+    }
 
-        //
+    /**
+     * Update the specified loan in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id) {
+        $loan = Loan::findOrFail($id);
 
+        $validator = Validator::make($data = Input::all(), Loan::$rules);
 
+        if ($validator->fails()) {
+            return Response::json(array(),424);
+        }
+
+        $loan->update($data);
+
+        return Response::json(Input::all());
     }
 }

@@ -1,1 +1,32 @@
-list
+<a class="pull-right btn btn-sm btn-default" aria-label="Left Align" ui-sref="dashboard.create">
+<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+Add new
+</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#ID</th>
+            <th>Amount</th>
+            <th>Updated</th>
+            <th>Created</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="loan in loans">
+            <td>{{ loan.id }}</td>
+            <td>{{ loan.amount }}</td>
+            <td>{{ loan.updated_at }}</td>
+            <td>{{ loan.created_at }}</td>
+            <td><a ui-sref="dashboard.edit({ id: loan.id })" aria-label="Left Align" class="btn btn-small btn-primary">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>EDIT
+            </a></td>
+            <td>
+                <a class="btn btn-small btn-danger" ng-click="remove(loan.id)">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </a></td>
+        </tr>
+    </tbody>
+</table>
+

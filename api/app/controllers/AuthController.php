@@ -1,31 +1,31 @@
 <?php
-class AuthController extends \BaseController
+class AuthController extends BaseController
 {
 
-    /**
-     * Login
-     *
-     * @return Response
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | Default Home Controller
+    |--------------------------------------------------------------------------
+    |
+    | You may wish to use controllers instead of, or in addition to, Closure
+    | based routes. That's great! Here is an example controller method to
+    | get you started. To route to this controller, just add the route:
+    |
+    |   Route::get('/', 'HomeController@showWelcome');
+    |
+    */
+
     public function login() {
 
-        $credential = Input::all();
-        if (Auth::attempt($credential, true)) {
-            $user = Auth::user();
-            return Response::json($user);
-        } else {
-            return Response::json($credential, 401);
-        }
+        $user = Sentry::getUser();
+
+        $token = $user->tokens()->where('client', BrowserDetect::toString())->first();
+
+        return Response::json(array('token' => $token->toArray()));
     }
 
-    /**
-     * Logout
-     *
-     * @return Response
-     */
     public function logout() {
-
-        Auth::logout();
-        return Response::json(array('succes' => true, 'msg' => "Success logout"));
+        $user = Sentry::logout();
+        return Response::json(array($user));
     }
 }

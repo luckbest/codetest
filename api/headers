@@ -1,0 +1,10 @@
+HTTP/1.0 405 Method Not Allowed
+Host: localhost:8000
+Connection: close
+X-Powered-By: PHP/5.5.20
+Allow: GET, HEAD
+Cache-Control: no-cache
+Date: Tue, 03 Feb 2015 08:24:26 GMT
+Set-Cookie: laravel_session=eyJpdiI6IjRuWEhiSVlLS0NWc2tkREpycjdvQ2c9PSIsInZhbHVlIjoiTE5hQTdYQ3E0WGNGZzA1bXZzRWxRNDBPOEJXXC9tb0h0WFBtQkRETUdQSWhuMFkrNVlFSzFiN0lIb1FveGU3SHNBUHQ2Sk9GRnJKZlh6eW1tOU1HVXNBPT0iLCJtYWMiOiI1OGJiMzUzMGQ5Y2I3OGUwNmExNTI2ZTE2Zjc1YWUyNWJmMmJiOWM3MzFjZWU1ZjhlYjBhNGRhZGZlOGFmY2U1In0%3D; expires=Tue, 03-Feb-2015 10:24:26 GMT; Max-Age=7200; path=/; httponly
+Content-type: text/html
+

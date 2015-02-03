@@ -8,24 +8,24 @@
  * Factory in the angularApp.
  */
 angular.module('angularApp')
-    .factory('authFactory', ['$http', '$cookieStore', 'API_END',
-        function ($http, $cookieStore, API_END) {
+    .factory('authFactory', ['$http', '$window', '$cookieStore', 'API_END',
+        function ($http, $window, $cookieStore, API_END) {
             var auth = {};
 
 
             auth.login = function (credentials) {
-
                 return $http.post(API_END + 'login', credentials).then(function (response, status) {
-                    auth.user = response.data;
-                    $cookieStore.put('user', auth.user);
+                    $window.sessionStorage.token = response.data.token.api_token;
+                    auth.user = response.data.token.api_token;
                     return auth.user;
                 });
             }
 
-            auth.logut = function () {
-                return $http.get(API_END + 'logut').then(function () {
+            auth.logout = function () {
+                return $http.get(API_END + 'logout').then(function () {
                     auth.user = null;
-                    $cookieStore.remove('user');
+                    delete $window.sessionStorage.token;
+                    return auth.user;
                 });
             }
 

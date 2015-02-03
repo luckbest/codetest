@@ -10,14 +10,24 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-Route::get('/', function() {
-    return View::make('index');
+Route::get('/', function () {
+    return View::make('hello');
 });
 
-Route::group(array('prefix' => 'api',), function () {
-    Route::post('login', 'AuthController@login');
-    Route::get('logout', 'AuthController@logout');
+Route::group(array('prefix' => 'api'), function () {
 
-    Route::get('loan', 'LoanController@index');
-    Route::post('loan', 'LoanController@store');
+    // Auth
+    Route::post('login', array('before' => 'auth.token', 'uses' => 'AuthController@login'));
+    Route::get('logout', array('before' => 'auth.token', 'uses' => 'AuthController@logout'));
+    // Route::resource('loan', 'LoanController');
+    // Loan
+    Route::get('loan', array('before' => 'auth.token', 'uses' => 'LoanController@index'));
+    Route::post('loan', array('before' => 'auth.token', 'uses' => 'LoanController@store'));
+    Route::get('loan/{id}', array('before' => 'auth.token', 'uses' => 'LoanController@show'));
+    Route::get('loan/{id}', array('before' => 'auth.token', 'uses' => 'LoanController@show'));
+    Route::post('loan/{id}', array('before' => 'auth.token', 'uses' => 'LoanController@show'));
+    Route::delete('loan/{id}', array('before' => 'auth.token', 'uses' => 'LoanController@destroy'));
+    Route::put('loan/{id}', array('before' => 'auth.token', 'uses' => 'LoanController@update'));
+
 });
+

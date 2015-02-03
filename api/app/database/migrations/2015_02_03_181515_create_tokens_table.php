@@ -2,7 +2,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateTokensTable extends Migration
 {
 
     /**
@@ -11,11 +11,13 @@ class CreateUsersTable extends Migration
      * @return void
      */
     public function up() {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('tokens', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('email');
-            $table->string('password');
-            $table->string('remember_token')->nullable();
+            $table->integer('user_id')->unsigned();
+            $table->string('api_token', 96);
+            $table->timestamp('expires_on');
+            $table->string('client');
+
             $table->timestamps();
         });
     }
@@ -26,6 +28,8 @@ class CreateUsersTable extends Migration
      * @return void
      */
     public function down() {
-        Schema::drop('users');
+
+        //
+
     }
 }

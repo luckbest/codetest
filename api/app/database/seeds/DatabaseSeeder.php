@@ -20,6 +20,14 @@ class UserTableSeeder extends Seeder
     public function run() {
         DB::table('users')->delete();
 
-        User::create(array('email' => 'admin@lupr.pl', 'password' => Hash::make('admin')));
+        Sentry::createUser(array(
+                           'email' => 'admin@admin.com',
+                           'password' => 'password',
+                           'activated' => true));
+      Sentry::createUser(array(
+                           'email' => 'lupr@admin.com',
+                           'password' => 'password',
+                           'activated' => true));
+
     }
 }

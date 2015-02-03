@@ -12,7 +12,7 @@ describe('Service: loanFactory', function () {
   }));
 
   it('should do something', function () {
-    expect(!!loanFactory).toBe(true);
+    expect(!!loanFactory).toBe(false);
   });
 
 });
