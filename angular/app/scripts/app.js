@@ -114,7 +114,6 @@ angular
 
 
         $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-            console.log('error', error);
             if (error.unAuthorized) {
                 $state.go('login');
             } else if (error.authorized) {

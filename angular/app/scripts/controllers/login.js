@@ -17,13 +17,9 @@ angular.module('angularApp')
 
             $scope.login = function () {
                 authFactory.login($scope.credentials).then(function (response, status) {
-                    console.log('ok action login', response);
-                    $state.go('dashboard.create');
+                    $state.go('dashboard.list');
                 }, function (err) {
                     $scope.invalidLogin = true;
-                }).
-                finally(function () {
-                    console.log('test');
                 });
             };
 

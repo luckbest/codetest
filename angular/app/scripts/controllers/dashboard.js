@@ -4,18 +4,18 @@
  * @ngdoc function
  * @name angularApp.controller:DashboardCtrl
  * @description
- * # DashboardCtrl
+ * # Controller for all dashboard operation
  * Controller of the angularApp
  */
 angular.module('angularApp')
     .controller('DashboardListController', ['$scope', 'Loan', 'growl',
         function ($scope, Loan, growl) {
             $scope.loans = [];
-
+            $scope.minValue = 0;
             var entries = Loan.query(function (err) {
                 $scope.loans = entries;
             }, function (err) {
-                console.log('err', err);
+                growl.addErrorMessage("Error fetching loans");
             });
 
             $scope.remove = function (id) {
@@ -23,6 +23,7 @@ angular.module('angularApp')
                     id: id
                 }, function () {
                     $scope.loans = Loan.query();
+                     growl.addSuccessMessage("Loan deleted");
                 }, function () {
                     growl.addErrorMessage("Error");
                 });

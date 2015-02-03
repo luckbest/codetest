@@ -2,6 +2,12 @@
 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 Add new
 </a>
+<form class="form-inline">
+    <div class="form-group">
+        <label>Amount bigger than (filter)</label>
+        <input type="text" class="form-control"  placeholder="Amount"  ng-model="minValue">
+    </div>
+</form>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -14,7 +20,7 @@ Add new
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="loan in loans">
+        <tr ng-repeat="loan in loans | moreThan:{amount: minValue}">
             <td>{{ loan.id }}</td>
             <td>{{ loan.amount }}</td>
             <td>{{ loan.updated_at }}</td>
@@ -29,4 +35,3 @@ Add new
         </tr>
     </tbody>
 </table>
-
